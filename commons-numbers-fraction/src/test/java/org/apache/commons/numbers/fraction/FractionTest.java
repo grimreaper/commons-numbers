@@ -280,22 +280,19 @@ public class FractionTest {
         {
             Fraction f = new Fraction(50, 75);
             f = f.reciprocal();
-            Assert.assertEquals(3, f.getNumerator());
-            Assert.assertEquals(2, f.getDenominator());
+            assertFraction(3, 2, f);
         }
 
         {
             Fraction f = new Fraction(4, 3);
             f = f.reciprocal();
-            Assert.assertEquals(3, f.getNumerator());
-            Assert.assertEquals(4, f.getDenominator());
+            assertFraction(3, 4, f);
         }
 
         {
             Fraction f = new Fraction(-15, 47);
             f = f.reciprocal();
-            Assert.assertEquals(-47, f.getNumerator());
-            Assert.assertEquals(15, f.getDenominator());
+            assertFraction(-47, 15, f);
         }
 
         {
@@ -310,8 +307,7 @@ public class FractionTest {
             // large values
             Fraction f = new Fraction(Integer.MAX_VALUE, 1);
             f = f.reciprocal();
-            Assert.assertEquals(1, f.getNumerator());
-            Assert.assertEquals(Integer.MAX_VALUE, f.getDenominator());
+            assertFraction(1, Integer.MAX_VALUE, f);
         }
     }
 
@@ -320,23 +316,20 @@ public class FractionTest {
         {
             Fraction f = new Fraction(50, 75);
             f = f.negate();
-            Assert.assertEquals(-2, f.getNumerator());
-            Assert.assertEquals(3, f.getDenominator());
+            assertFraction(-2, 3, f);
         }
 
         {
             Fraction f = new Fraction(-50, 75);
             f = f.negate();
-            Assert.assertEquals(2, f.getNumerator());
-            Assert.assertEquals(3, f.getDenominator());
+            assertFraction(2, 3, f);
         }
 
         // large values
         {
             Fraction f = new Fraction(Integer.MAX_VALUE-1, Integer.MAX_VALUE);
             f = f.negate();
-            Assert.assertEquals(Integer.MIN_VALUE+2, f.getNumerator());
-            Assert.assertEquals(Integer.MAX_VALUE, f.getDenominator());
+            assertFraction(Integer.MIN_VALUE+2, Integer.MAX_VALUE, f);
         }
 
         {
@@ -365,13 +358,11 @@ public class FractionTest {
             {
                 Fraction f2 = Fraction.ONE;
                 Fraction f = f1.add(f2);
-                Assert.assertEquals(Integer.MAX_VALUE, f.getNumerator());
-                Assert.assertEquals(1, f.getDenominator());
+                assertFraction(Integer.MAX_VALUE, 1, f);
             }
             {
                 Fraction f = f1.add(1);
-                Assert.assertEquals(Integer.MAX_VALUE, f.getNumerator());
-                Assert.assertEquals(1, f.getDenominator());
+                assertFraction(Integer.MAX_VALUE, 1, f);
             }
         }
 
@@ -379,8 +370,7 @@ public class FractionTest {
             Fraction f1 = new Fraction(-1, 13*13*2*2);
             Fraction f2 = new Fraction(-2, 13*17*2);
             Fraction f = f1.add(f2);
-            Assert.assertEquals(13*13*17*2*2, f.getDenominator());
-            Assert.assertEquals(-17 - 2*13*2, f.getNumerator());
+            assertFraction(-17 - 2*13*2, 13*13*17*2*2, f);
 
             try {
                 f.add(null);
@@ -394,24 +384,21 @@ public class FractionTest {
             Fraction f1 = new Fraction(1,32768*3);
             Fraction f2 = new Fraction(1,59049);
             Fraction f = f1.add(f2);
-            Assert.assertEquals(52451, f.getNumerator());
-            Assert.assertEquals(1934917632, f.getDenominator());
+            assertFraction(52451, 1934917632, f);
         }
 
         {
             Fraction f1 = new Fraction(Integer.MIN_VALUE, 3);
             Fraction f2 = new Fraction(1,3);
             Fraction f = f1.add(f2);
-            Assert.assertEquals(Integer.MIN_VALUE+1, f.getNumerator());
-            Assert.assertEquals(3, f.getDenominator());
+            assertFraction(Integer.MIN_VALUE+1, 3, f);
         }
 
         {
             Fraction f1 = new Fraction(Integer.MAX_VALUE - 1, 1);
             Fraction f2 = Fraction.ONE;
             Fraction f = f1.add(f2);
-            Assert.assertEquals(Integer.MAX_VALUE, f.getNumerator());
-            Assert.assertEquals(1, f.getDenominator());
+            assertFraction(Integer.MAX_VALUE, 1, f);
 
             try {
                 f = f.add(Fraction.ONE); // should overflow
@@ -479,23 +466,20 @@ public class FractionTest {
             Fraction f1 = new Fraction(2, 7);
             Fraction f2 = Fraction.ONE;
             Fraction f = f1.divide(f2);
-            Assert.assertEquals(2, f.getNumerator());
-            Assert.assertEquals(7, f.getDenominator());
+            assertFraction(2, 7, f);
         }
 
         {
             Fraction f1 = new Fraction(1, Integer.MAX_VALUE);
             Fraction f = f1.divide(f1);
-            Assert.assertEquals(1, f.getNumerator());
-            Assert.assertEquals(1, f.getDenominator());
+            assertFraction(1, 1, f);
         }
 
         {
             Fraction f1 = new Fraction(Integer.MIN_VALUE, Integer.MAX_VALUE);
             Fraction f2 = new Fraction(1, Integer.MAX_VALUE);
             Fraction f = f1.divide(f2);
-            Assert.assertEquals(Integer.MIN_VALUE, f.getNumerator());
-            Assert.assertEquals(1, f.getDenominator());
+            assertFraction(Integer.MIN_VALUE, 1, f);
 
             try {
                 f.divide(null);
@@ -522,8 +506,7 @@ public class FractionTest {
         {
             Fraction f1 = new Fraction(6, 35);
             Fraction f = f1.divide(15);
-            Assert.assertEquals(2, f.getNumerator());
-            Assert.assertEquals(175, f.getDenominator());
+            assertFraction(2, 175, f);
         }
     }
 
@@ -543,8 +526,7 @@ public class FractionTest {
             Fraction f1 = new Fraction(Integer.MAX_VALUE, 1);
             Fraction f2 = new Fraction(Integer.MIN_VALUE, Integer.MAX_VALUE);
             Fraction f = f1.multiply(f2);
-            Assert.assertEquals(Integer.MIN_VALUE, f.getNumerator());
-            Assert.assertEquals(1, f.getDenominator());
+            assertFraction(Integer.MIN_VALUE, 1, f);
 
             try {
                 f.multiply(null);
@@ -555,8 +537,7 @@ public class FractionTest {
         {
             Fraction f1 = new Fraction(6, 35);
             Fraction f = f1.multiply(15);
-            Assert.assertEquals(18, f.getNumerator());
-            Assert.assertEquals(7, f.getDenominator());
+            assertFraction(18, 7, f);
         }
     }
 
@@ -612,16 +593,14 @@ public class FractionTest {
             Fraction f1 = new Fraction(1,32768*3);
             Fraction f2 = new Fraction(1,59049);
             Fraction f = f1.subtract(f2);
-            Assert.assertEquals(-13085, f.getNumerator());
-            Assert.assertEquals(1934917632, f.getDenominator());
+            assertFraction(-13085, 1934917632, f);
         }
 
         {
             Fraction f1 = new Fraction(Integer.MIN_VALUE, 3);
             Fraction f2 = new Fraction(1,3).negate();
             Fraction f = f1.subtract(f2);
-            Assert.assertEquals(Integer.MIN_VALUE+1, f.getNumerator());
-            Assert.assertEquals(3, f.getDenominator());
+            assertFraction(Integer.MIN_VALUE+1, 3, f);
         }
 
         {
@@ -629,13 +608,11 @@ public class FractionTest {
             {
                 Fraction f2 = Fraction.ONE;
                 Fraction f = f1.subtract(f2);
-                Assert.assertEquals(Integer.MAX_VALUE-1, f.getNumerator());
-                Assert.assertEquals(1, f.getDenominator());
+                assertFraction(Integer.MAX_VALUE-1, 1, f);
             }
             {
                 Fraction f = f1.subtract(1);
-                Assert.assertEquals(Integer.MAX_VALUE-1, f.getNumerator());
-                Assert.assertEquals(1, f.getDenominator());
+                assertFraction(Integer.MAX_VALUE-1, 1, f);
             }
         }
 
